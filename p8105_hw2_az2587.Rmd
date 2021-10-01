@@ -1,0 +1,78 @@
+---
+title: "p8105_hw2_az2587"
+author: "Anyu Zhu"
+date: "9/30/2021"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE, message=FALSE}
+library(tidyverse)
+library(dplyr)
+library(readxl)
+```
+
+## Problem 1
+
+Read and clean data from Mr. Trash Wheel dataset:
+```{r}
+trash_wheel = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx",
+                         sheet = "Mr. Trash Wheel",
+                         range =  cell_cols("A:N"), col_names = TRUE, 
+                         trim_ws = TRUE, skip = 1) %>%
+  janitor::clean_names() %>%
+  filter(!is.na(dumpster)) %>% 
+  mutate(sports_balls = round(sports_balls, 0))
+
+trash_wheel
+```
+
+Read and clean precipitation data for 2018 and 2019:
+```{r}
+precipitation_2018 = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx",
+                                sheet = "2018 Precipitation", range = "A2:B14", 
+                                col_names = TRUE, trim_ws = TRUE) %>% 
+  janitor::clean_names() %>% 
+  filter(!is.na(total)) %>% 
+  mutate(year = 2018) %>% 
+  select(year, month, total)
+
+precipitation_2019 = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx",
+                                sheet = "2019 Precipitation", range = "A2:B14", 
+                                col_names = TRUE, trim_ws = TRUE) %>% 
+  janitor::clean_names() %>% 
+  filter(!is.na(total)) %>% 
+  mutate(year = 2019) %>% 
+  select(year, month, total)
+
+precipitation = 
+  bind_rows(precipitation_2018, precipitation_2019) %>% 
+  janitor::clean_names() %>% 
+  mutate(month = month.name[month])
+
+precipitation
+```
+**Conclusion**
+```{r}
+analysis_trash_wheel = 
+  tibble(
+    trash_kind = c(colnames(trash_wheel))[7:14],
+    mean = c(as.integer(colMeans(trash_wheel[,7:14]))),
+    sum = c(as.integer(colSums(trash_wheel[,7:14])))
+  ) 
+
+analysis_trash_wheel %>% 
+  knitr::kable()
+```
+The dataset of Mr. Trash Wheel contains **`r nrow(trash_wheel)`** observations. The variables included in the dataset are: `r colnames(trash_wheel)`. During `r min(trash_wheel$date)` to `r max(trash_wheel$date)`, Mr. Trash Wheel collected `r sum(trash_wheel$weight_tons)` tons of trash. The mean and sum of each kind of trash are displayed in the table above.\
+
+The precipitation dataset after combination covers data in 2018 and 2019 with **`r nrow(precipitation)`** observations. There are three variables: `r colnames(precipitation)`. The sum of all precipitation is **`r sum(precipitation$total)`**, and the mean of the data is **`r mean(precipitation$total)`**.
+
+Total precipitation in 2018 is **`r sum(precipitation_2018$total)`**.\
+The median number of sports balls in a dumpster in 2017 is **`r median(filter(trash_wheel, year == 2017)$sports_balls)`**.
+
+
+
