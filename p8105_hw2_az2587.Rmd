@@ -82,9 +82,9 @@ Clean the data in pols-month.csv:
 pols_month = read_csv("fivethirtyeight_datasets/pols-month.csv") %>% 
   janitor::clean_names() %>% 
   separate(mon, into = c("year", "month", "day"), sep = "-") %>% 
-  mutate(month = month.name[as.numeric(month)]) %>% 
-  mutate(president = recode(prez_dem, `0` = "gop", `1` = "dem")) %>% 
-  mutate(year = as.numeric(year)) %>% 
+  mutate(month = month.name[as.numeric(month)],
+         president = recode(prez_dem, `0` = "gop", `1` = "dem"),
+         year = as.numeric(year)) %>% 
   select(-prez_dem, -prez_gop) %>% 
   select(-day)
 
@@ -129,6 +129,36 @@ The pols_month dataset has **`r nrow(pols_month)`** rows and **`r ncol(pols_mont
 The snp dataset contains **`r nrow(snp)`** rows and **`r ncol(ncol(snp))`**, the variables are `r colnames(snp)`. The set covers data from **`r min(snp$year)` to `r max(snp$year)`**. \
 The unemployment datset contains **`r nrow(unemployment)`** rows and **`r ncol(unemployment)`** columns, the variables are `r colnames(unemployment)`. The set covers data from **`r min(unemployment$year)` to `r max(unemployment$year)`**. \
 Joining the three sets by year and month, we get a dataset with **`r nrow(five_thirty_eight)`** rows and **`r ncol(five_thirty_eight)`** columns. The data cover from **`r min(five_thirty_eight$year)` to `r max(five_thirty_eight$year)`**. The variables are `r colnames(five_thirty_eight)`.
+
+## Problem 3
+
+Load and clean the data of popularity of baby names:
+```{r}
+popular_baby_names = read_csv("Popular_Baby_Names.csv") %>% 
+  janitor::clean_names() %>% 
+  mutate(gender = str_to_lower(gender),
+         ethnicity = str_to_lower(ethnicity),
+         childs_first_name = str_to_lower(childs_first_name),
+         childs_first_name = str_to_title(childs_first_name)) %>% 
+  distinct(.keep_all = TRUE)
+
+popular_baby_names
+```
+
+Produce a table showing rank in popularity of **Olivia** as a female baby name over time:
+```{r}
+popular_baby_names %>% 
+  filter(childs_first_name == "Olivia", gender == "female") %>% 
+  pivot_wider(names_from = "year_of_birth",
+              values_from = "rank") %>% 
+  select(-gender, -childs_first_name, -count) 
+```
+Produce a table showing the most popular name among male children over time:
+```{r}
+
+```
+
+
 
 
 
