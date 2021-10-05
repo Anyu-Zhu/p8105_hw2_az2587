@@ -68,11 +68,11 @@ analysis_trash_wheel =
 analysis_trash_wheel %>% 
   knitr::kable()
 ```
-The dataset of Mr. Trash Wheel contains **`r nrow(trash_wheel)`** observations. The variables included in the dataset are: `r colnames(trash_wheel)`. During `r min(trash_wheel$date)` to `r max(trash_wheel$date)`, Mr. Trash Wheel collected `r sum(trash_wheel$weight_tons)` tons of trash. The mean and sum of each kind of trash are displayed in the table above.\
+The dataset of Mr. Trash Wheel contains **`r nrow(trash_wheel)`** observations. The variables included in the dataset are: `r colnames(trash_wheel)`. During `r min(trash_wheel$date)` to `r max(trash_wheel$date)`, Mr. Trash Wheel collected `r sum(trash_wheel["weight_tons"])` tons of trash. The mean and sum of each kind of trash are displayed in the table above.\
 
-The precipitation dataset after combination covers data in 2018 and 2019 with **`r nrow(precipitation)`** observations. There are three variables: `r colnames(precipitation)`. The sum of all precipitation is **`r sum(precipitation$total)`**, and the mean of the data is **`r mean(precipitation$total)`**.
+The precipitation dataset after combination covers data in 2018 and 2019 with **`r nrow(precipitation)`** observations. There are three variables: `r colnames(precipitation)`. The sum of all precipitation is **`r sum(precipitation["total"])`**, and the mean of the data is **`r mean(precipitation$total)`**.
 
-Total precipitation in 2018 is **`r sum(precipitation_2018$total)`**.\
+Total precipitation in 2018 is **`r sum(precipitation_2018["total"])`**.\
 The median number of sports balls in a dumpster in 2017 is **`r median(filter(trash_wheel, year == 2017)$sports_balls)`**.
 
 
@@ -125,11 +125,11 @@ five_thirty_eight =
 five_thirty_eight
 ```
 
-**Conclusion**
-The pols_month dataset has **`r nrow(pols_month)`** rows and **`r ncol(pols_month)`** columns, the variables are `r colnames(pols_month)`. The set covers data from **`r min(pols_month$year)` to `r max(pols_month$year)`**. \
-The snp dataset contains **`r nrow(snp)`** rows and **`r ncol(ncol(snp))`**, the variables are `r colnames(snp)`. The set covers data from **`r min(snp$year)` to `r max(snp$year)`**. \
-The unemployment datset contains **`r nrow(unemployment)`** rows and **`r ncol(unemployment)`** columns, the variables are `r colnames(unemployment)`. The set covers data from **`r min(unemployment$year)` to `r max(unemployment$year)`**. \
-Joining the three sets by year and month, we get a dataset with **`r nrow(five_thirty_eight)`** rows and **`r ncol(five_thirty_eight)`** columns. The data cover from **`r min(five_thirty_eight$year)` to `r max(five_thirty_eight$year)`**. The variables are `r colnames(five_thirty_eight)`.
+**Conclusion**\
+The pols_month dataset has **`r nrow(pols_month)`** rows and **`r ncol(pols_month)`** columns, the variables are `r colnames(pols_month)`. The set covers data from **`r min(pols_month["year"])` to `r max(pols_month["year"])`**. \
+The snp dataset contains **`r nrow(snp)`** rows and **`r ncol(snp)`** columns, the variables are `r colnames(snp)`. The set covers data from **`r min(snp["year"])` to `r max(snp["year"])`**. \
+The unemployment datset contains **`r nrow(unemployment)`** rows and **`r ncol(unemployment)`** columns, the variables are `r colnames(unemployment)`. The set covers data from **`r min(unemployment["year"])` to `r max(unemployment["year"])`**. \
+Joining the three sets by year and month, we get a dataset with **`r nrow(five_thirty_eight)`** rows and **`r ncol(five_thirty_eight)`** columns. The data cover from **`r min(five_thirty_eight["year"])` to `r max(five_thirty_eight["year"])`**. The variables are `r colnames(five_thirty_eight)`.
 
 ## Problem 3
 
