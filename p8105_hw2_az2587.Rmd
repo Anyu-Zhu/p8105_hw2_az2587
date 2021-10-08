@@ -20,7 +20,7 @@ library(ggplot2)
 
 Read and clean data from Mr. Trash Wheel dataset:
 ```{r}
-trash_wheel = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx",
+trash_wheel = read_excel("Trash-Wheel-Collection-Totals-7-2020-2.xlsx",
                          sheet = "Mr. Trash Wheel",
                          range =  cell_cols("A:N"), col_names = TRUE, 
                          trim_ws = TRUE, skip = 1) %>%
@@ -33,7 +33,7 @@ trash_wheel
 
 Read and clean precipitation data for 2018 and 2019:
 ```{r}
-precipitation_2018 = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx",
+precipitation_2018 = read_excel("Trash-Wheel-Collection-Totals-7-2020-2.xlsx",
                                 sheet = "2018 Precipitation", range = "A2:B14", 
                                 col_names = TRUE, trim_ws = TRUE) %>% 
   janitor::clean_names() %>% 
@@ -41,7 +41,7 @@ precipitation_2018 = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx",
   mutate(year = 2018) %>% 
   select(year, month, total)
 
-precipitation_2019 = read_excel("Trash-Wheel-Collection-Totals-8-6-19.xlsx",
+precipitation_2019 = read_excel("Trash-Wheel-Collection-Totals-7-2020-2.xlsx",
                                 sheet = "2019 Precipitation", range = "A2:B14", 
                                 col_names = TRUE, trim_ws = TRUE) %>% 
   janitor::clean_names() %>% 
