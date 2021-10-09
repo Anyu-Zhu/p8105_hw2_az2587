@@ -73,7 +73,7 @@ The dataset of Mr. Trash Wheel contains **`r nrow(trash_wheel)`** observations. 
 The precipitation dataset after combination covers data in 2018 and 2019 with **`r nrow(precipitation)`** observations. There are three variables: `r colnames(precipitation)`. The sum of all precipitation is **`r sum(precipitation["total"])`**, and the mean of the data is **`r mean(precipitation$total)`**.
 
 Total precipitation in 2018 is **`r sum(precipitation_2018["total"])`**.\
-The median number of sports balls in a dumpster in 2017 is **`r median(filter(trash_wheel, year == 2017)$sports_balls)`**.
+The median number of sports balls in a dumpster in 2019 is **`r median(filter(trash_wheel, year == 2019)$sports_balls)`**.
 
 
 ## Problem 2
