@@ -98,7 +98,7 @@ snp = read_csv("fivethirtyeight_datasets/snp.csv") %>%
   separate(date, into = c("month", "day", "year"), sep = "/") %>% 
   mutate(month = month.name[as.numeric(month)]) %>% 
   mutate(year = as.numeric(year)) %>% 
-  mutate(year = ifelse(year>90, year+1900, year + 2000)) %>% 
+  mutate(year = ifelse(year>22, year+1900, year + 2000)) %>% 
   select(-day) %>% 
   select(year, month, everything())
 
